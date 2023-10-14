@@ -18,11 +18,11 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: test path
-      run:  ls -lrt src/
+      run:  ls -lrt
     - name: Run Cucumber tests
       run: npm test
     - name: test path
-      run:  ls -lrt src/
+      run:  ls -lrt
     - uses: actions/upload-artifact@v3
       if: always()
       with:

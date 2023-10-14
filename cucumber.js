@@ -4,7 +4,7 @@ module.exports = {
         formatOptions: {
             snippetInterface: "async-await"
         },
-        paths: [
+       paths: [
             "src/test/features/"
         ],
         publishQuiet: true,

@@ -1,34 +1,27 @@
-name: Test
-
-env:
-  CI: true
-  DEBUG: pw:api
-
+name: Playwright Tests
 on:
   push:
-
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
 jobs:
-
-  run:
-    strategy:
-      matrix:
-        node: [ '18', '20' ]
+  test:
+    timeout-minutes: 60
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node }}
-    - name: npm ci
+        node-version: 18
+    - name: Install dependencies
       run: npm ci
-    - name: install Playwright
-      run: npx playwright install --with-deps > /dev/null
-    - name: run features
-      run: npm run test
-    - name: Upload test results
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Run Cucumber tests
+      run: npm test
+    - uses: actions/upload-artifact@v3
       if: always()
-      uses: actions/upload-artifact@v3
       with:
-        name: test-result-report
-        path: reports/report.html
+        name: Report
+        path: test-results
+        retention-days: 2

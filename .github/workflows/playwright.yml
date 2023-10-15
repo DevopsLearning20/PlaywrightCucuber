@@ -16,8 +16,6 @@ jobs:
       run: apt-get install -y wget gnupg
     - name: 2nd step
       run: sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-    - name: 3rd step
-      run: apt-get update
     - name: 4th step
       run: apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 --no-install-recommends
     - name: 5th step

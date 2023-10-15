@@ -8,23 +8,22 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-
-    services:
-      playwright:
-        image: mcr.microsoft.com/playwright:focal
-        options: --entrypoint npm
-   
     steps:
     - uses: actions/checkout@v3
-   
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
     - name: Install dependencies
       run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+   
     - name: Run Cucumber tests
-      run: npm test
-    
+      run: npm run test
+   
     - uses: actions/upload-artifact@v3
       if: always()
       with:
-        name: Report
-        path: test-results
+        name: report
+        path: test-results/
         retention-days: 2

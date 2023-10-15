@@ -11,8 +11,8 @@ jobs:
 
     services:
       playwright:
-        image: timbru31/node-chrome:latest
-        options: apt-get install -y wget gnupg
+        image: mcr.microsoft.com/playwright:focal
+        options: --entrypoint npm
    
     steps:
     - uses: actions/checkout@v3

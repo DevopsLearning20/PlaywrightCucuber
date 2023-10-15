@@ -8,18 +8,29 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    
+    container: 
+      image: timbru31/node-chrome:latest
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
       with:
         node-version: 18.18
     - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      run: apt-get install -y wget gnupg
+    - name: 2nd step
+      run: sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+    - name: 3rd step
+      run: apt-get update
+    - name: 4th step
+      run: apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 --no-install-recommends
+    - name: 5th step
+      run: rm -rf /var/lib/apt/lists/*
     - name: test path
-      run:  ls -lrt
-    - name: Run Cucumber tests
+      run:  npm install
+    - name: Install playwright 
+      run: npx playwright install
+    - name: run cucumber test
       run: npm test
     - name: test path
       run:  ls -lrt

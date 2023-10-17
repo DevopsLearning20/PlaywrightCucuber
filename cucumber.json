@@ -1,6 +1,5 @@
 {
     "default": {
-        "tags": "@fail",
         "formatOptions": {
             "snippetInterface": "async-await"
         },
@@ -21,8 +20,7 @@
             "html:test-results/cucumber-report.html",
             "json:test-results/cucumber-report.json",
             "rerun:@rerun.txt"
-        ],
-        "parallel": 2
+        ]
     }
     
 }
